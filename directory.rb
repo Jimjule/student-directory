@@ -6,3 +6,6 @@ puts "Michael Corleone"
 puts "Terminator"
 puts "The Joker"
 puts "Norman Bates"
+print "Overall we have "
+print 6
+print " great students"
