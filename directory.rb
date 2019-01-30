@@ -3,19 +3,14 @@ def input_students
   puts "To finish, just leave the answers blank"
   students = []
   name = gets.chomp
-  puts "Where are they from?"
-  country = gets.chomp
-  puts "What's their hobby?"
-  hobby = gets.chomp
   while !name.empty? do
-    students << {name: name, cohort: :november, country: country, hobby: hobby}
-    puts "Now we have #{students.count} students"
-    puts "Please enter the name of the student"
+    students << {name: name, cohort: :november}
+    if students.length == 1
+      puts "Now we have #{students.count} student"
+      else
+      puts "Now we have #{students.count} students"
+    end
     name = gets.chomp
-    puts "Where are they from?"
-    country = gets.chomp
-    puts "What's their hobby?"
-    hobby = gets.chomp
   end
   students
 end
@@ -30,7 +25,7 @@ end
 def print(students)
   i = 0
   while i < students.length
-    puts "#{students[i][:name]}".center(3), + "#{students[i][:cohort]}".center(5) + " cohort, from #{students[i][:country]}".center(7) + " and #{students[i][:hobby]} as their hobby"
+    puts "#{students[i][:name]} #{students[i][:cohort]} cohort"
     i += 1
   end
 end
