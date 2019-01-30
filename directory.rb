@@ -3,13 +3,10 @@ def input_students
   puts "To finish, just leave the answers blank"
   students = []
   name = gets.chomp
+
   while !name.empty? do
     students << {name: name, cohort: :november}
-    if students.length == 1
-      puts "Now we have #{students.count} student"
-      else
-      puts "Now we have #{students.count} students"
-    end
+    puts "Now we have #{students.count} students"
     name = gets.chomp
   end
   students
@@ -34,7 +31,8 @@ def print_footer(names)
   puts "Overall we have #{names.count} great students"
 end
 
-
-print_header
-print(students)
-print_footer(students)
+if students.length > 0
+  print_header
+  print(students)
+  print_footer(students)
+end
