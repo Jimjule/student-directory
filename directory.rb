@@ -2,7 +2,7 @@ def input_students
   puts "Please enter the names of the students"
   puts "To finish, just leave the answers blank"
   students = []
-  name = gets.chomp
+  name = gets.chop
   while !name.empty? do
     students << {name: name, cohort: :november}
     if students.length == 1
@@ -10,7 +10,7 @@ def input_students
       else
       puts "Now we have #{students.count} students"
     end
-    name = gets.chomp
+    name = gets.rstrip
   end
   students
 end
