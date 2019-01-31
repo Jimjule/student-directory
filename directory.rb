@@ -3,17 +3,22 @@ def input_students
   puts "To finish, just leave the answers blank"
   @students = []
   name = STDIN.gets.chomp
+  puts "Enter their cohort"
+  cohort = STDIN.gets.chomp
 
   while !name.empty? do
-    add_students(name)
+    add_students(name, cohort = "november")
     puts "Now we have #{@students.count} students"
+    puts "Enter their name"
     name = STDIN.gets.chomp
+    puts "Enter their cohort"
+    cohort = STDIN.gets.chomp
   end
   @students
 end
 
-def add_students(name)
-  @students << {name: name, cohort: :november}
+def add_students(name, cohort = "november")
+  @students << {name: name, cohort: cohort}
 end
 
 students = input_students
@@ -25,7 +30,7 @@ end
 
 def print_student_list
   i = 0
-  while i < @students.length
+  while i < @students[i][:name].length
     puts "#{@students[i][:name]} #{@students[i][:cohort]} cohort"
     i += 1
   end
