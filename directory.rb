@@ -86,14 +86,19 @@ end
 def process
   case selection = STDIN.gets.chomp
   when "1"
+    puts "Ready to input students."
     @students = input_students
   when "2"
+    puts "Showing students, as requested:"
     show_students
   when "3"
     save_students
+    puts "List of students saved to file."
   when "4"
     load_students
+    puts "List of students loaded from file."
   when "9"
+    puts "Goodbye."
     exit
   else
     puts "I don't know what you meant, try again"
