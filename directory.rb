@@ -49,28 +49,42 @@ def show_students
   print_footer
 end
 
-def save_students
-  file = File.open("students.csv", "w")
+def save_students(save_name = "students.csv")
+  if save_name == nil
+    save_name = "students.csv"
+  elsif save_name == ''
+    save_name = "students.csv"
+  end
+  file = File.open(save_name, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
+  puts "List saved to #{save_name}"
 end
 
 def load_students(filename = "students.csv")
+  if filename == nil
+    filename = "students.csv"
+  elsif filename == ''
+    filename = "students.csv"
+  end
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_students(name).to_s
   end
   file.close
+  puts "List loaded from #{filename}."
 end
 
 def try_load_students
   filename = ARGV.first
   if filename == nil
+    filename = "students.csv"
+  elsif filename == ''
     filename = "students.csv"
   end
   return if filename.nil?
@@ -92,11 +106,9 @@ def process
     puts "Showing students, as requested:"
     show_students
   when "3"
-    save_students
-    puts "List of students saved to file."
+    save_students(save_name = gets.chomp)
   when "4"
-    load_students
-    puts "List of students loaded from file."
+    load_students(filename = gets.chomp)
   when "9"
     puts "Goodbye."
     exit
