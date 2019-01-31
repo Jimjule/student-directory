@@ -5,11 +5,15 @@ def input_students
   name = STDIN.gets.chomp
 
   while !name.empty? do
-    @students << {name: name, cohort: :november}
+    add_students(name)
     puts "Now we have #{@students.count} students"
     name = STDIN.gets.chomp
   end
   @students
+end
+
+def add_students(name)
+  @students << {name: name, cohort: :november}
 end
 
 students = input_students
@@ -59,7 +63,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    add_students(name).to_s
   end
   file.close
 end
