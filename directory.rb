@@ -62,14 +62,15 @@ def save_students(save_name = "students.csv")
     csv_line = student_data.join(",")
     file.puts csv_line
   end
+  file.close
   puts "List saved to #{save_name}"
 end
 
 def load_students(filename = "students.csv")
   filename = "students.csv" if filename.to_s.empty?
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      add_students(line.chomp.split(",").first)
+  CSV.foreach("students.csv") do |row|
+    row.each do |line|
+      add_students
     end
   end
   puts "List loaded from #{filename}."
