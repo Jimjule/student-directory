@@ -1,24 +1,26 @@
+require 'csv'
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just leave the answers blank"
   @students = []
-  name = STDIN.gets.chomp
+  @name = STDIN.gets.chomp
   puts "Enter their cohort"
   cohort = STDIN.gets.chomp
 
-  while !name.empty? do
-    add_students(name, cohort = "november")
+  while !@name.empty? do
+    add_students(cohort = "november")
     puts "Now we have #{@students.count} students"
     puts "Enter their name"
-    name = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
     puts "Enter their cohort"
     cohort = STDIN.gets.chomp
   end
   @students
 end
 
-def add_students(name, cohort = "november")
-  @students << {name: name, cohort: cohort}
+def add_students(cohort = "november")
+  @students << {name: @name, cohort: cohort}
 end
 
 students = input_students
@@ -29,10 +31,8 @@ def print_header
 end
 
 def print_student_list
-  i = 0
-  while i < @students[i][:name].length
-    puts "#{@students[i][:name]} #{@students[i][:cohort]} cohort"
-    i += 1
+  @students.each.with_index(1) do |student, index|
+    puts "#{index} #{student[:name]}, #{student[:cohort]} cohort"
   end
 end
 
@@ -55,33 +55,23 @@ def show_students
 end
 
 def save_students(save_name = "students.csv")
-  if save_name == nil
-    save_name = "students.csv"
-  elsif save_name == ''
-    save_name = "students.csv"
-  end
+  save_name = "students.csv" if save_name.to_s.empty?
   file = File.open(save_name, "w")
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  file.close
   puts "List saved to #{save_name}"
 end
 
 def load_students(filename = "students.csv")
-  if filename == nil
-    filename = "students.csv"
-  elsif filename == ''
-    filename = "students.csv"
+  filename = "students.csv" if filename.to_s.empty?
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      add_students(line.chomp.split(",").first)
+    end
   end
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    add_students(name).to_s
-  end
-  file.close
   puts "List loaded from #{filename}."
 end
 
